@@ -76,8 +76,8 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                parent.getContext().startActivity(new Intent(Intent.ACTION_VIEW,
-//                        ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                parent.getContext().startActivity(new Intent(Intent.ACTION_VIEW,
+                        ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
 
                 String aspectRatio = getCursor().getString(ArticleLoader.Query.ASPECT_RATIO);
 
@@ -97,7 +97,7 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
 
         viewHolder.mSubTitle.setText(cursor.getString(ArticleLoader.Query.AUTHOR));
 
-        Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(800, 800).centerInside().into(viewHolder.mImageView);
+        Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(700, 700).centerInside().into(viewHolder.mImageView);
 
 //        Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(300, 300).centerCrop().into(new Target() {
 //            @Override
