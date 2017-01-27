@@ -4,7 +4,6 @@ package com.example.xyzreader.ui;
 import android.support.annotation.CallSuper;
 import android.support.annotation.UiThread;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Unbinder;
 import butterknife.internal.Utils;
@@ -19,7 +18,7 @@ public class MyCardCursorAdapter$ViewHolder_ViewBinding<T extends MyCardCursorAd
   public MyCardCursorAdapter$ViewHolder_ViewBinding(T target, View source) {
     this.target = target;
 
-    target.mImageView = Utils.findRequiredViewAsType(source, R.id.article_thumbnail, "field 'mImageView'", ImageView.class);
+    target.mImageView = Utils.findRequiredViewAsType(source, R.id.article_thumbnail, "field 'mImageView'", DynamicHeightImageView.class);
     target.mTitle = Utils.findRequiredViewAsType(source, R.id.article_title, "field 'mTitle'", TextView.class);
     target.mSubTitle = Utils.findRequiredViewAsType(source, R.id.article_subtitle, "field 'mSubTitle'", TextView.class);
   }
