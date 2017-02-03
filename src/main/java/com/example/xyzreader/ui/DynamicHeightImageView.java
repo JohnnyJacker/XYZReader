@@ -4,9 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-/**
- * An {@link android.widget.ImageView} layout that maintains a consistent width to height aspect ratio.
- */
+
 public class DynamicHeightImageView extends ImageView {
 
     private double mHeightRatio;
@@ -37,14 +35,9 @@ public class DynamicHeightImageView extends ImageView {
             int width = MeasureSpec.getSize(widthMeasureSpec);
             int height = (int) (width * mHeightRatio);
             setMeasuredDimension(width, height);
-        }
-        else {
+        } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
 
-    public void setAspectRatio(float aspectRatio) {
-        mHeightRatio = aspectRatio;
-        requestLayout();
-    }
 }

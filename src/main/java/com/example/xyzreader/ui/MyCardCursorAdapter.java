@@ -1,8 +1,5 @@
 package com.example.xyzreader.ui;
 
-/**
- * Created by chris on 1/23/2017.
- */
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -92,8 +89,6 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
     }
 
 
-
-
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor) {
 
@@ -131,10 +126,6 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
 //        viewHolder.mImageView.setAspectRatio(cursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
 //
         Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.PHOTO_URL)).into(target);
-
-
-
-
 
 
 //        Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(700, 700).centerCrop().into(new Target() {

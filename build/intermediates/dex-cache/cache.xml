@@ -142,7 +142,7 @@
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="4fc2a3d2e87215239888289255ad2cb35c520e3a">
+        sha1="1ab7dc0d465769607b298e9ef321a6cc9bbedc7b">
         <dex dex="C:\Users\chris\Desktop\XYZReader\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_963184abff586cf926f1e52f154971395fde2f8f\classes.dex" />
     </item>
     <item
@@ -187,7 +187,7 @@
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="7d59c836d8736e1ae5b4ae598589c5f0b8621424">
+        sha1="fe5ad6cce493edf9cfd2cdc49d42df47f33f3d2e">
         <dex dex="C:\Users\chris\Desktop\XYZReader\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c18dc8c15c6b79b54593192a7010c3a794487720\classes.dex" />
     </item>
     <item

@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86"
-    api-level="25"
-    density="xxhdpi"
+    abi="armeabi-v7a,armeabi"
+    api-level="23"
+    density="mdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="18556627704431"
+    timestamp="97437243555323"
     token="-1632741089099854062"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="3139" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="1294" />
     <task
         name="verifier"
-        duration="0" />
+        duration="1351" />
+
+    <artifact
+        location="C:\Users\chris\Desktop\XYZReader\build\outputs\apk\XYZReader-debug.apk"
+        type="MAIN" />
 
     <build
-        timestamp="17937869370825"
+        timestamp="97437243555323"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\chris\Desktop\XYZReader\build\outputs\apk\XYZReader-debug.apk"
             type="MAIN" />
     </build>
-    <build
-        timestamp="18326956969368"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\chris\Desktop\XYZReader\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-            type="RESOURCES" />
-    </build>
-    <build
-        timestamp="18556627704431"
-        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

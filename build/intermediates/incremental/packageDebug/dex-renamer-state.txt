@@ -1,4 +1,4 @@
-#Thu Jan 26 22:23:45 PST 2017
+#Wed Feb 01 19:50:13 PST 2017
 base.0=C\:\\Users\\chris\\Desktop\\XYZReader\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_963184abff586cf926f1e52f154971395fde2f8f
 renamed.1=classes2.dex
 renamed.0=classes.dex

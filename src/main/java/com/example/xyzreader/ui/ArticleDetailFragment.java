@@ -42,12 +42,16 @@ import butterknife.Unbinder;
  */
 public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
+
     public static final String ARG_ITEM_ID = "ARG_ITEM_ID";
     private Unbinder unbinder;
     private long mItemId;
+
+    /**
+     * Bind the views
+     */
     @BindView(R.id.photo)
     ImageView mPhotoView;
-
     @BindView(R.id.meta_bar)
     LinearLayout metaBar;
     @BindView(R.id.article_title)
@@ -69,18 +73,32 @@ public class ArticleDetailFragment extends Fragment implements
     AppBarLayout mAppBarLayout;
 
 
-
     public ArticleDetailFragment() {
     }
 
+
+    /**
+     * Create a new instance of ArticleDetailFragment, providing "itemId"
+     * as an argument
+     *
+     * @param itemId
+     * @return The new ArticleDetailFragment
+     */
+
     public static ArticleDetailFragment newInstance(long itemId) {
+        ArticleDetailFragment f = new ArticleDetailFragment();
+
+        //  Supply itemId as an argument
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
-        ArticleDetailFragment fragment = new ArticleDetailFragment();
-        fragment.setArguments(arguments);
-        return fragment;
+        f.setArguments(arguments);
+        return f;
     }
 
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +110,9 @@ public class ArticleDetailFragment extends Fragment implements
         setHasOptionsMenu(true);
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -99,6 +120,13 @@ public class ArticleDetailFragment extends Fragment implements
         getLoaderManager().initLoader(0, null, this);
     }
 
+
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,11 +135,20 @@ public class ArticleDetailFragment extends Fragment implements
         return view;
     }
 
+    /**
+     * @param i
+     * @param bundle
+     * @return
+     */
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return ArticleLoader.newInstanceForItemId(getActivity(), mItemId);
     }
 
+    /**
+     * @param cursorLoader
+     * @param cursor
+     */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor cursor) {
         if (cursor == null || cursor.isClosed() || !cursor.moveToFirst()) {
@@ -125,10 +162,14 @@ public class ArticleDetailFragment extends Fragment implements
 
         if (mToolbar != null) {
 //            if (mCard == null) {
-                mToolbar.setTitle(title);
+            mToolbar.setTitle(title);
 //            }
             mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                /**
+                 *
+                 * @param v
+                 */
                 @Override
                 public void onClick(View v) {
                     getActivity().finish();
@@ -143,6 +184,11 @@ public class ArticleDetailFragment extends Fragment implements
 //                    Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.PHOTO_URL)).resize(700, 700).centerCrop().fit().into(mPhotoView);
 
         Target target = new Target() {
+            /**
+             *
+             * @param bitmap
+             * @param from
+             */
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
@@ -153,11 +199,19 @@ public class ArticleDetailFragment extends Fragment implements
                 mPhotoView.setImageBitmap(bitmap);
             }
 
+            /**
+             *
+             * @param errorDrawable
+             */
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
 
             }
 
+            /**
+             *
+             * @param placeHolderDrawable
+             */
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
 
@@ -167,44 +221,63 @@ public class ArticleDetailFragment extends Fragment implements
         Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.PHOTO_URL)).into(target);
 
 
+        Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(300, 300).centerCrop().into(new Target() {
+            /**
+             *
+             * @param bitmap
+             * @param from
+             */
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
+                mPhotoView.setImageBitmap(bitmap);
+                Palette.from(bitmap)
+                        .generate(new Palette.PaletteAsyncListener() {
+                                      /**
+                                       *
+                                       * @param palette
+                                       */
+                                      @Override
+                                      public void onGenerated(Palette palette) {
+                                          Palette.Swatch textSwatch = palette.getMutedSwatch();
+                                          if (textSwatch == null) {
+                                              return;
+                                          }
 
-//                Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(300, 300).centerCrop().into(new Target() {
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//
-//                mPhotoView.setImageBitmap(bitmap);
-//                Palette.from(bitmap)
-//                        .generate(new Palette.PaletteAsyncListener() {
-//                                      @Override
-//                                      public void onGenerated(Palette palette) {
-//                                          Palette.Swatch textSwatch = palette.getMutedSwatch();
-//                                          if (textSwatch == null) {
-//                                              return;
-//                                          }
-//
-////                                          viewHolder.itemView.setBackgroundColor(textSwatch.getRgb());
-//
-//                                          mTitleView.setTextColor(textSwatch.getTitleTextColor());
-//
-//                                      }
-//                                  }
-//                        );
-//
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Drawable errorDrawable) {
-//
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//            }
-//        });
+                                          metaBar.setBackgroundColor(textSwatch.getRgb());
+
+                                          mTitleView.setTextColor(textSwatch.getTitleTextColor());
+
+                                      }
+                                  }
+                        );
+
+            }
+
+            /**
+             *
+             * @param errorDrawable
+             */
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            /**
+             *
+             * @param placeHolderDrawable
+             */
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
 
         mShareFab.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
@@ -215,27 +288,19 @@ public class ArticleDetailFragment extends Fragment implements
         });
     }
 
+    /**
+     * @param cursorLoader
+     */
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
     }
 
+    /**
+     *
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    private void changeUIColors(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            public void onGenerated(Palette palette) {
-                int defaultColor = 0xFF333333;
-                int darkMutedColor = palette.getDarkMutedColor(defaultColor);
-                metaBar.setBackgroundColor(darkMutedColor);
-                if (mCollapsingToolbarLayout != null) {
-                    mCollapsingToolbarLayout.setContentScrimColor(darkMutedColor);
-                    mCollapsingToolbarLayout.setStatusBarScrimColor(darkMutedColor);
-                }
-            }
-        });
     }
 }
