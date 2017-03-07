@@ -27,7 +27,7 @@ public class ArticleDetailFragment_ViewBinding<T extends ArticleDetailFragment> 
     target.mPhotoView = Utils.findRequiredViewAsType(source, R.id.photo, "field 'mPhotoView'", ImageView.class);
     target.metaBar = Utils.findRequiredViewAsType(source, R.id.meta_bar, "field 'metaBar'", LinearLayout.class);
     target.mTitleView = Utils.findRequiredViewAsType(source, R.id.article_title, "field 'mTitleView'", TextView.class);
-    target.mAuthorView = Utils.findRequiredViewAsType(source, R.id.article_author, "field 'mAuthorView'", TextView.class);
+    target.mDateView = Utils.findRequiredViewAsType(source, R.id.article_date, "field 'mDateView'", TextView.class);
     target.mBodyView = Utils.findRequiredViewAsType(source, R.id.article_body, "field 'mBodyView'", TextView.class);
     target.mShareFab = Utils.findRequiredViewAsType(source, R.id.fab, "field 'mShareFab'", FloatingActionButton.class);
     target.mToolbar = Utils.findOptionalViewAsType(source, R.id.detail_toolbar, "field 'mToolbar'", Toolbar.class);
@@ -44,7 +44,7 @@ public class ArticleDetailFragment_ViewBinding<T extends ArticleDetailFragment> 
     target.mPhotoView = null;
     target.metaBar = null;
     target.mTitleView = null;
-    target.mAuthorView = null;
+    target.mDateView = null;
     target.mBodyView = null;
     target.mShareFab = null;
     target.mToolbar = null;

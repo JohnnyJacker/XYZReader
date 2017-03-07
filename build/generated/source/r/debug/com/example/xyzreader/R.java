@@ -2754,7 +2754,13 @@ containing a value of this type.
         public static final int abc_textfield_search_material=0x7f020051;
         public static final int abc_vector_test=0x7f020052;
         public static final int avd_hide_password=0x7f020053;
+        public static final int avd_hide_password_1=0x7f02006c;
+        public static final int avd_hide_password_2=0x7f02006d;
+        public static final int avd_hide_password_3=0x7f02006e;
         public static final int avd_show_password=0x7f020054;
+        public static final int avd_show_password_1=0x7f02006f;
+        public static final int avd_show_password_2=0x7f020070;
+        public static final int avd_show_password_3=0x7f020071;
         public static final int design_bottom_navigation_item_background=0x7f020055;
         public static final int design_fab_background=0x7f020056;
         public static final int design_ic_visibility=0x7f020057;
@@ -2808,8 +2814,8 @@ containing a value of this type.
         public static final int all=0x7f0e0036;
         public static final int always=0x7f0e003a;
         public static final int app_bar=0x7f0e0075;
-        public static final int article_author=0x7f0e0087;
         public static final int article_body=0x7f0e008b;
+        public static final int article_date=0x7f0e008a;
         public static final int article_subtitle=0x7f0e0090;
         public static final int article_thumbnail=0x7f0e008f;
         public static final int article_title=0x7f0e0086;
@@ -2838,7 +2844,7 @@ containing a value of this type.
         public static final int design_menu_item_action_area_stub=0x7f0e0080;
         public static final int design_menu_item_text=0x7f0e007f;
         public static final int design_navigation_view=0x7f0e007e;
-        public static final int detail_toolbar=0x7f0e0089;
+        public static final int detail_toolbar=0x7f0e0088;
         public static final int disableHome=0x7f0e0012;
         public static final int edit_query=0x7f0e0066;
         public static final int end=0x7f0e002a;
@@ -2872,7 +2878,7 @@ containing a value of this type.
         public static final int meta_bar=0x7f0e0085;
         public static final int middle=0x7f0e0039;
         public static final int mini=0x7f0e0037;
-        public static final int movie_detail_container=0x7f0e008a;
+        public static final int movie_detail_container=0x7f0e0089;
         public static final int multiply=0x7f0e001f;
         public static final int navigation_header_container=0x7f0e007d;
         public static final int never=0x7f0e003d;
@@ -2949,7 +2955,7 @@ containing a value of this type.
         public static final int transition_scene_layoutid_cache=0x7f0e000c;
         public static final int up=0x7f0e000d;
         public static final int useLogo=0x7f0e0018;
-        public static final int view=0x7f0e0088;
+        public static final int view=0x7f0e0087;
         public static final int view_offset_helper=0x7f0e000e;
         public static final int visible=0x7f0e00a8;
         public static final int withText=0x7f0e003e;

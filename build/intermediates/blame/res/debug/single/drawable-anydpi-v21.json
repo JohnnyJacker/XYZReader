@@ -1,10 +1,10 @@
 [
     {
         "merged": "C:\\Users\\chris\\Desktop\\XYZReader\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
-        "source": "C:\\Users\\chris\\Desktop\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.1.0\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+        "source": "C:\\Users\\chris\\.android\\build-cache\\69fdccce5f1147945235a5bd05672f2df47d9a4b\\output\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
     },
     {
         "merged": "C:\\Users\\chris\\Desktop\\XYZReader\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
-        "source": "C:\\Users\\chris\\Desktop\\XYZReader\\build\\intermediates\\exploded-aar\\com.android.support\\design\\25.1.0\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+        "source": "C:\\Users\\chris\\.android\\build-cache\\69fdccce5f1147945235a5bd05672f2df47d9a4b\\output\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
     }
 ]

@@ -46,7 +46,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             //  If getIntent is not null and getIntent().getData is not null
             if (getIntent() != null && getIntent().getData() != null) {
-                //  Get the current id
+                //  Get the id
                 mCurrentId = ItemsContract.Items.getItemId(getIntent().getData());
             }
         } else {
@@ -74,7 +74,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             /**
              * Checks if the cursor is not null then moves to the position selected
              *
-             * @param position
+             * @param position Cursor position
              */
             @Override
             public void onPageSelected(int position) {
@@ -87,7 +87,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         //  Ensures a loader is initialized and active.  If the loader doesn't already exist, one
         //  is created and (if the activity/fragment is currently started) starts the loader.
         //  Otherwise the last created loader is re-used
-        // https://developer.android.com/reference/android/support/v4/app/LoaderManager.html
+        //  https://developer.android.com/reference/android/support/v4/app/LoaderManager.html
 
         getSupportLoaderManager().initLoader(0, null, this);
     }
@@ -122,7 +122,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         if (mCurrentId > 0) {
             //  Move to the first position in the cursor
             cursor.moveToFirst();
-            //  While there is not an item after the one selected
+            //  Returns whether the cursor is pointing to the position after the last row
             while (!cursor.isAfterLast()) {
                 //  If the current id is equal to the query id
                 if (cursor.getLong(ArticleLoader.Query._ID) == mCurrentId) {

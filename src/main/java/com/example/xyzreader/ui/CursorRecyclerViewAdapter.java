@@ -29,6 +29,10 @@ import android.support.v7.widget.RecyclerView;
  * Created by skyfishjy on 10/31/14.
  */
 
+/**
+ *
+ * @param <VH>
+ */
 public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
 
@@ -40,6 +44,10 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
 
     private DataSetObserver mDataSetObserver;
 
+    /**
+     *
+     * @param cursor
+     */
     public CursorRecyclerViewAdapter(Cursor cursor) {
         mCursor = cursor;
         mDataValid = cursor != null;
@@ -50,10 +58,18 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Cursor getCursor() {
         return mCursor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getItemCount() {
         if (mDataValid && mCursor != null) {
@@ -62,6 +78,11 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         return 0;
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         if (mDataValid && mCursor != null && mCursor.moveToPosition(position)) {
@@ -70,6 +91,10 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         return 0;
     }
 
+    /**
+     *
+     * @param hasStableIds
+     */
     @Override
     public void setHasStableIds(boolean hasStableIds) {
         super.setHasStableIds(true);
@@ -77,6 +102,11 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
 
     public abstract void onBindViewHolder(VH viewHolder, Cursor cursor);
 
+    /**
+     *
+     * @param viewHolder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(VH viewHolder, int position) {
         if (!mDataValid) {
@@ -130,6 +160,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     }
 
     private class NotifyingDataSetObserver extends DataSetObserver {
+
         @Override
         public void onChanged() {
             super.onChanged();

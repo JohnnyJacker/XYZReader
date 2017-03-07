@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.squareup.picasso.Target;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 import static com.example.xyzreader.R.id.photo;
 import static com.example.xyzreader.R.id.view;
 
@@ -29,26 +31,31 @@ import static com.example.xyzreader.R.id.view;
 /**
  * Created by skyfishjy on 10/31/14.
  */
+
+
 public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorAdapter.ViewHolder> {
 
-
+    /**
+     * @param cursor
+     */
     public MyCardCursorAdapter(Cursor cursor) {
         super(cursor);
     }
 
+    /**
+     * @return
+     */
     @Override
     public int getItemCount() {
         return super.getItemCount();
     }
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
 
         @BindView(R.id.article_thumbnail)
         DynamicHeightImageView mImageView;
-
-
-//        @BindView(R.id.article_thumbnail)
-//        ImageView mImageView;
 
         @BindView(R.id.article_title)
         TextView mTitle;
@@ -64,6 +71,11 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
         }
     }
 
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
 
@@ -73,14 +85,15 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
         final ViewHolder vh = new ViewHolder(itemView);
 
         itemView.setOnClickListener(new View.OnClickListener() {
+            /**
+             *
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 parent.getContext().startActivity(new Intent(Intent.ACTION_VIEW,
                         ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
 
-                String aspectRatio = getCursor().getString(ArticleLoader.Query.ASPECT_RATIO);
-
-                Log.d("LOG_TAG", "The Aspect Ratio of this Image is " + aspectRatio);
 
             }
         });
@@ -88,7 +101,10 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
         return vh;
     }
 
-
+    /**
+     * @param viewHolder
+     * @param cursor
+     */
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor) {
 
@@ -97,71 +113,71 @@ public class MyCardCursorAdapter extends CursorRecyclerViewAdapter<MyCardCursorA
 
         viewHolder.mSubTitle.setText(cursor.getString(ArticleLoader.Query.AUTHOR));
 
-//        Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).centerCrop().fit().into(viewHolder.mImageView);
+
 
 
         Target target = new Target() {
+            /**
+             *
+             * @param bitmap
+             * @param from
+             */
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-
-                String aspectRatio = cursor.getString(ArticleLoader.Query.ASPECT_RATIO);
-                String photo = cursor.getString(ArticleLoader.Query.THUMB_URL);
-
-                float ratio = (float) bitmap.getHeight() / (float) bitmap.getWidth();
-                viewHolder.mImageView.setHeightRatio(ratio);
+                viewHolder.mImageView.setAspectRatio(cursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
                 viewHolder.mImageView.setImageBitmap(bitmap);
+
+
+                viewHolder.mImageView.setImageBitmap(bitmap);
+                Palette.from(bitmap)
+                        .generate(new Palette.PaletteAsyncListener() {
+                                      /**
+                                       *
+                                       * @param palette
+                                       */
+                                      @Override
+                                      public void onGenerated(Palette palette) {
+                                          Palette.Swatch textSwatch = palette.getLightMutedSwatch();
+
+                                          if (textSwatch != null) {
+                                              viewHolder.itemView.setBackgroundColor(textSwatch.getRgb());
+                                          }
+
+
+
+                                          if (textSwatch == null) {
+                                              return;
+                                          }
+
+
+                                      }
+                                  }
+                        );
+
+
             }
 
+            /**
+             *
+             * @param errorDrawable
+             */
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
 
             }
 
+            /**
+             *
+             * @param placeHolderDrawable
+             */
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
 
             }
         };
-//        viewHolder.mImageView.setAspectRatio(cursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
-//
         Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.PHOTO_URL)).into(target);
 
-
-//        Picasso.with(viewHolder.mImageView.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(700, 700).centerCrop().into(new Target() {
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//
-//                viewHolder.mImageView.setImageBitmap(bitmap);
-//                Palette.from(bitmap)
-//                        .generate(new Palette.PaletteAsyncListener() {
-//                                      @Override
-//                                      public void onGenerated(Palette palette) {
-//                                          Palette.Swatch textSwatch = palette.getMutedSwatch();
-//                                          if (textSwatch == null) {
-//                                              return;
-//                                          }
-//
-////                                          viewHolder.itemView.setBackgroundColor(textSwatch.getRgb());
-//
-//                                          viewHolder.mTitle.setTextColor(textSwatch.getTitleTextColor());
-//
-//                                      }
-//                                  }
-//                        );
-//
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Drawable errorDrawable) {
-//
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//            }
-//        });
 
     }
 }

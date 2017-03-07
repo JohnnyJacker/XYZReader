@@ -18,12 +18,14 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.xyzreader.R;
@@ -56,8 +58,10 @@ public class ArticleDetailFragment extends Fragment implements
     LinearLayout metaBar;
     @BindView(R.id.article_title)
     TextView mTitleView;
-    @BindView(R.id.article_author)
-    TextView mAuthorView;
+//    @BindView(R.id.article_author)
+//    TextView mAuthorView;
+    @BindView(R.id.article_date)
+    TextView mDateView;
     @BindView(R.id.article_body)
     TextView mBodyView;
     @BindView(R.id.fab)
@@ -155,15 +159,16 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
+
+
         final String title = cursor.getString(ArticleLoader.Query.TITLE);
 
+
         final String body = Html.fromHtml(cursor.getString(ArticleLoader.Query.BODY)).toString();
-        String photo = cursor.getString(ArticleLoader.Query.PHOTO_URL);
 
         if (mToolbar != null) {
-//            if (mCard == null) {
+
             mToolbar.setTitle(title);
-//            }
             mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 /**
@@ -177,11 +182,22 @@ public class ArticleDetailFragment extends Fragment implements
             });
         }
 
+
+
+
         mTitleView.setText(title);
         mBodyView.setText(body);
 
 
-//                    Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.PHOTO_URL)).resize(700, 700).centerCrop().fit().into(mPhotoView);
+        mDateView.setText(Html.fromHtml(
+                DateUtils.getRelativeTimeSpanString(
+                        cursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
+                        System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+                        DateUtils.FORMAT_ABBREV_ALL).toString()
+                        + " by <font color='#000000'>"
+                        + cursor.getString(ArticleLoader.Query.AUTHOR)
+                        + "</font>"));
+
 
         Target target = new Target() {
             /**
@@ -192,11 +208,27 @@ public class ArticleDetailFragment extends Fragment implements
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-
-                String aspectRatio = cursor.getString(ArticleLoader.Query.ASPECT_RATIO);
-
-
                 mPhotoView.setImageBitmap(bitmap);
+                Palette.from(bitmap)
+                        .generate(new Palette.PaletteAsyncListener() {
+                                      /**
+                                       *
+                                       * @param palette
+                                       */
+                                      @Override
+                                      public void onGenerated(Palette palette) {
+                                          Palette.Swatch textSwatch = palette.getLightMutedSwatch();
+                                          if (textSwatch == null) {
+                                              return;
+                                          }
+
+                                          metaBar.setBackgroundColor(textSwatch.getRgb());
+
+                                          mTitleView.setTextColor(textSwatch.getTitleTextColor());
+
+                                      }
+                                  }
+                        );
             }
 
             /**
@@ -219,59 +251,6 @@ public class ArticleDetailFragment extends Fragment implements
         };
 
         Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.PHOTO_URL)).into(target);
-
-
-        Picasso.with(this.getContext()).load(cursor.getString(ArticleLoader.Query.THUMB_URL)).resize(300, 300).centerCrop().into(new Target() {
-            /**
-             *
-             * @param bitmap
-             * @param from
-             */
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-
-                mPhotoView.setImageBitmap(bitmap);
-                Palette.from(bitmap)
-                        .generate(new Palette.PaletteAsyncListener() {
-                                      /**
-                                       *
-                                       * @param palette
-                                       */
-                                      @Override
-                                      public void onGenerated(Palette palette) {
-                                          Palette.Swatch textSwatch = palette.getMutedSwatch();
-                                          if (textSwatch == null) {
-                                              return;
-                                          }
-
-                                          metaBar.setBackgroundColor(textSwatch.getRgb());
-
-                                          mTitleView.setTextColor(textSwatch.getTitleTextColor());
-
-                                      }
-                                  }
-                        );
-
-            }
-
-            /**
-             *
-             * @param errorDrawable
-             */
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            /**
-             *
-             * @param placeHolderDrawable
-             */
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
 
         mShareFab.setOnClickListener(new View.OnClickListener() {
             /**

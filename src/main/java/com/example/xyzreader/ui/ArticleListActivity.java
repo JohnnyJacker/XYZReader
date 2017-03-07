@@ -29,7 +29,9 @@ import butterknife.ButterKnife;
 public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
 
-
+    /**
+     * Bind views
+     */
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefresh;
 
@@ -41,6 +43,10 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     private MyCardCursorAdapter mCardCursorAdapter;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +84,11 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     }
 
-
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -86,12 +96,20 @@ public class ArticleListActivity extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         onRefresh();
         return true;
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -99,6 +117,9 @@ public class ArticleListActivity extends AppCompatActivity implements
                 new IntentFilter(UpdaterService.BROADCAST_ACTION_STATE_CHANGE));
     }
 
+    /**
+     *
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -109,6 +130,11 @@ public class ArticleListActivity extends AppCompatActivity implements
 
 
     private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
+        /**
+         *
+         * @param context
+         * @param intent
+         */
         @Override
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
@@ -118,22 +144,40 @@ public class ArticleListActivity extends AppCompatActivity implements
         }
     };
 
+    /**
+     *
+     * @param i
+     * @param bundle
+     * @return
+     */
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return ArticleLoader.newAllArticlesInstance(this);
     }
 
+    /**
+     *
+     * @param cursorLoader
+     * @param cursor
+     */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
        mCardCursorAdapter.swapCursor(cursor);
     }
 
+    /**
+     *
+     * @param loader
+     */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCardCursorAdapter.swapCursor(null);
     }
 
 
+    /**
+     *   Start UpdaterService
+     */
     @Override
     public void onRefresh() {
 
